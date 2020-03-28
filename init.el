@@ -71,13 +71,18 @@
  '(spaceline-evil-normal ((t (:background "#5B5B5B" :foreground "#f8f8f2"))))
  '(spaceline-evil-replace ((t (:background "#FF8C0" :foreground "#f8f8f2"))))
  '(spaceline-evil-visual ((t (:background "#FF8C00" :foreground "#f8f8f2"))))
- '(show-paren-match ((t (:background "#ff5555" :foreground "#f8f8f2"))))
+ '(show-paren-match ((t (:background "#6272a4" :foreground "#00000"))))
  '(lsp-face-semhl-field ((t (:foreground "#6272a4"))))
  '(lsp-face-semhl-variable ((t (:foreground "#6272a4"))))
  '(lsp-face-semhl-variable-local ((t (:foreground "#6272a4"))))
- '(linum-highlight-face ((t (:background "#000000" :foreground "#EEEE00")))))
-(set-face-background 'region "#44475a")
-
+ '(powerline-active0 ((t (:foreground "#f8f8f2"))))
+ '(powerline-active1 ((t (:foreground "#FFDEAD"))))
+ '(linum-highlight-face ((t (:background "#282828" :foreground "#EEEE00")))))
+;;(set-face-background 'region "#44475a")
+(set-cursor-color "coral")
+;;(set-face-foreground 'region "dim gray")
+;;(set-face-background 'region "black")
+;;(set-face-background 'fringe "#002b36")
 
 (require 'neotree)
 (global-set-key [f2] 'neotree-toggle)
@@ -122,9 +127,6 @@
   (dap-ui-mode t))
 ;; lsp java end
 
-;; clip board
-(require 'simpleclip)
-(simpleclip-mode 1)
 
 ;; evil
 (setq evil-want-C-i-jump nil)
@@ -180,7 +182,34 @@
 ;; space line theme
 (require 'spaceline-config)
 (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
+(setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state
+    powerline-height 25
+    powerline-default-separator "contour")
+
+    ;; powerline-default-separator "wave")
+    ;; powerline-default-separator "slant") 
+;; powerline-default-separator "contour")
 (spaceline-spacemacs-theme)
+;;(defhydra hydra-modeline/powerline-separator (:color blue :hint t)
+;;  "powerline separators"
+;;  ("A" (setq powerline-default-separator 'alternate) "alternate")
+;;  ("a" (setq powerline-default-separator 'arrow) "arrow")
+;;  ("f" (setq powerline-default-separator 'arrow-fade) "arrow-fade")
+;;  ("|" (setq powerline-default-separator 'bar) "bar")
+;;  ("b" (setq powerline-default-separator 'box) "box")
+;;  ("[" (setq powerline-default-separator 'brace) "brace")
+;;  ("B" (setq powerline-default-separator 'butt) "butt")
+;;  ("c" (setq powerline-default-separator 'chamfer) "chamfer")
+;;  ("C" (setq powerline-default-separator 'contour) "contour")
+;;  ("(" (setq powerline-default-separator 'curve) "curve")
+;;  (")" (setq powerline-default-separator 'rounded) "rounded")
+;;  ("]" (setq powerline-default-separator 'roundstub) "roundstub")
+;;  ("/" (setq powerline-default-separator 'slant) "slant")
+;;  ("w" (setq powerline-default-separator 'wave) "wave")
+;;  ("z" (setq powerline-default-separator 'zigzag) "zigzag")
+;;  ("u" (setq powerline-default-separator 'utf-8) "utf-8")
+;;  ("n" (setq powerline-default-separator 'nil) "none"))
+
 ;; evil end
 ;; evil end
 ;; evil end
@@ -266,6 +295,9 @@
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 
+;; clip board
+;;(require 'simpleclip)
+;;(simpleclip-mode 1)
 ;; x-select-enable-clipboard
 (setq x-select-enable-clipboard t)
 (unless window-system
