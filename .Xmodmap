@@ -1,0 +1,15 @@
+!xmodmap -e 'keycode 22 = 0xffe3 h'
+!xmodmap -e "keysym BackSpace = Control_L h" 
+!xmodmap -e 'keycode 43 = h H h H'
+!xmodmap -e 'keycode 43 = h H NoSymbol 0xff08'
+!xmodmap -e 'keycode 108 = 0xff08 NoSymbol NoSymbol'
+!xmodmap -e 'keycode 43 mod1 = 0xff08'
+clear Lock
+!RightAlt
+!keycode 108 = 0xff08 NoSymbol 0xff08
+! use right alt -> uppercase h
+!keycode 108 = H H H H
+! use shifit h -> backspace
+!keycode 43 = h 0xff08 h H
+! change Esc AND Caps_lock
+keycode 66 = Escape NoSymbol Escape
