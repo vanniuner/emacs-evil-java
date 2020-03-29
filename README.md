@@ -1,56 +1,99 @@
-# emacs-evil-java
+\![image](![img](https://github.com/vanniuner/emacs-evil-java/blob/master/Screenshot%20from%202020-03-29%2013-17-51.png))
 
-![image](https://github.com/vanniuner/emacs-evil-java/blob/master/Screenshot%20from%202020-03-29%2013-17-51.png)
 
-* 插件列表
-** evil
-** evil-easymotion
-** evil-leader 
-** evil-surround
-** evil-org
-** org-pomodoro
-** neotree
-** lsp-java
-** ejc-sql
-** spaceline
-** swiper
-** smex
-** gruvbox-theme
+# 插件列表
 
-* 快捷键
-** evil-easymotion
-   SPC %find character%
-** evil-leader
-   leader key [;]
-   "w" 'save-buffer
-   "q" 'kill-current-buffer
-   "d" 'delete-other-windows
-   "6" 'dap-continue
-   "2" 'dap-next
-   "j" 'next-multiframe-window
-   "4" “dap-breakpoint-toggle	
-   "5" 'dap-ui-repl	
-   "t" 'insert-translated-name-replace-with-camel
-   "k" 'ejc-describe-table
-   "i" 'lsp-java-add-import
-   "s" 'evil-surround-region
-** evil-surround
-   选中内容 ;s  
-   ;s evil-surround-region
-** neotree
-   F2     打开/关闭 neotree 窗口
-   M-1    打开neotree并选中当前节点
-** lsp-java
-   ;i     自动import
-   M-i    跳转到实现代码块
-   M-d    跳转到定义代码块
-   M-x > dap-debug > JavaAttach  远程断点链接
-   ;5     打开交互命令行，可trace当前断点下内存变量 
-   ;4     当前行切换为断点
-   ;6     跳转到下一个断点 
-   ;2     断点跳过
-*** 代码补全颜色设置
- #+Begin_SRC lisp
+
+## evil
+
+
+## evil-easymotion
+
+
+## evil-leader
+
+
+## evil-surround
+
+
+## evil-org
+
+
+## org-pomodoro
+
+
+## neotree
+
+
+## lsp-java
+
+
+## ejc-sql
+
+
+## spaceline
+
+
+## swiper
+
+
+## smex
+
+
+## gruvbox-theme
+
+
+# 快捷键
+
+
+## evil-easymotion
+
+SPC %find character%
+
+
+## evil-leader
+
+leader key [;]
+"w" 'save-buffer
+"q" 'kill-current-buffer
+"d" 'delete-other-windows
+"6" 'dap-continue
+"2" 'dap-next
+"j" 'next-multiframe-window
+"4" “dap-breakpoint-toggle	
+"5" 'dap-ui-repl	
+"t" 'insert-translated-name-replace-with-camel
+"k" 'ejc-describe-table
+"i" 'lsp-java-add-import
+"s" 'evil-surround-region
+
+
+## evil-surround
+
+选中内容 ;s  
+;s evil-surround-region
+
+
+## neotree
+
+F2     打开/关闭 neotree 窗口
+M-1    打开neotree并选中当前节点
+
+
+## lsp-java
+
+;i     自动import
+M-i    跳转到实现代码块
+M-d    跳转到定义代码块
+M-x > dap-debug > JavaAttach  远程断点链接
+;5     打开交互命令行，可trace当前断点下内存变量 
+;4     当前行切换为断点
+;6     跳转到下一个断点 
+;2     断点跳过
+
+
+### 代码补全颜色设置
+
     ;; 自行尝试
     '(company-tooltip-annotation ((t (:foreground "#FFA500"))))
     '(company-tooltip-annotation-selection ((t (:foreground "#2F4F4F"))))
@@ -58,11 +101,13 @@
     '(company-tooltip-common-selection ((t (:foreground "#800000"))))
     '(company-tooltip ((t (:background "#44475a" :foreground "#E1FFFF"))))
     '(company-tooltip-selection ((t (:background "#FFE66F" :foreground "#000000"))))
- #+END_SRC
-** ejc-sql
-   ejc-connection 链接数据库
-   C-c C-c 执行sql
- #+Begin_SRC lisp
+
+
+## ejc-sql
+
+ejc-connection 链接数据库
+C-c C-c 执行sql
+
     (ejc-create-connection
     "test"
     :classpath (concat "~/.m2/repository/com/oracle"
@@ -75,49 +120,53 @@
     :password "-----------"
     ;; 使用xml标签分割sql
     :separator "</?\.*>")
- #+END_SRC
- 
-#+Begin_SRC sql
-    -- 执行一次查询
-    <SELECT name='for _ORG'>
-        select * from  PROJECT_INFO
+
+\#+Begin\_SRC sql
+    &#x2013; 执行一次查询
+    <SELECT name='for \_ORG'>
+        select \* from  PROJECT\_INFO
     </SELECT>
-    -- 一次执行多条记录
-    <CREATE name='for _ORG'>
+    &#x2013; 一次执行多条记录
+    <CREATE name='for \_ORG'>
         delimiter ;
-        insert into PROJECT_INFO (project_code,period,unpaid) values('102000034','2020-02-02',2.3);
-        insert into PROJECT_INFO (project_code,period,unpaid) values('102000035','2020-02-02',2.3);
-        insert into PROJECT_INFO (project_code,period,unpaid) values('102000034','2020-02-02',2.3);
+        insert into PROJECT\_INFO (project\_code,period,unpaid) values('102000034','2020-02-02',2.3);
+        insert into PROJECT\_INFO (project\_code,period,unpaid) values('102000035','2020-02-02',2.3);
+        insert into PROJECT\_INFO (project\_code,period,unpaid) values('102000034','2020-02-02',2.3);
     </CREATE>
-#+Begin_SRC
-** spaceline
-*** 设置evil状态颜色
- #+Begin_SRC lisp
+\#+Begin\_SRC
+
+
+## spaceline
+
+
+### 设置evil状态颜色
+
     '(spaceline-evil-emacs ((t (:background "#6272a4" :foreground "#f8f8f2"))))
     '(spaceline-evil-insert ((t (:background "#77A498" :foreground "#f8f8f2"))))
     '(spaceline-evil-motion ((t (:background "#696969" :foreground "#f8f8f2"))))
     '(spaceline-evil-normal ((t (:background "#5B5B5B" :foreground "#f8f8f2"))))
     '(spaceline-evil-replace ((t (:background "#FF8C0" :foreground "#f8f8f2"))))
     '(spaceline-evil-visual ((t (:background "#FF8C00" :foreground "#f8f8f2"))))
- #+END_SRC
-*** 设置spaceline 分割符形状
-  #+Begin_SRC lisp
-  ;; 选择一个
-   ("A" (setq powerline-default-separator 'alternate) "alternate")
-   ("a" (setq powerline-default-separator 'arrow) "arrow")
-   ("f" (setq powerline-default-separator 'arrow-fade) "arrow-fade")
-   ("|" (setq powerline-default-separator 'bar) "bar")
-   ("b" (setq powerline-default-separator 'box) "box")
-   ("[" (setq powerline-default-separator 'brace) "brace")
-   ("B" (setq powerline-default-separator 'butt) "butt")
-   ("c" (setq powerline-default-separator 'chamfer) "chamfer")
-   ("C" (setq powerline-default-separator 'contour) "contour")
-   ("(" (setq powerline-default-separator 'curve) "curve")
-   (")" (setq powerline-default-separator 'rounded) "rounded")
-   ("]" (setq powerline-default-separator 'roundstub) "roundstub")
-   ("/" (setq powerline-default-separator 'slant) "slant")
-   ("w" (setq powerline-default-separator 'wave) "wave")
-   ("z" (setq powerline-default-separator 'zigzag) "zigzag")
-   ("u" (setq powerline-default-separator 'utf-8) "utf-8")
-   ("n" (setq powerline-default-separator 'nil) "none"))
-  #+END_SRC
+
+
+### 设置spaceline 分割符形状
+
+    ;; 选择一个
+     ("A" (setq powerline-default-separator 'alternate) "alternate")
+     ("a" (setq powerline-default-separator 'arrow) "arrow")
+     ("f" (setq powerline-default-separator 'arrow-fade) "arrow-fade")
+     ("|" (setq powerline-default-separator 'bar) "bar")
+     ("b" (setq powerline-default-separator 'box) "box")
+     ("[" (setq powerline-default-separator 'brace) "brace")
+     ("B" (setq powerline-default-separator 'butt) "butt")
+     ("c" (setq powerline-default-separator 'chamfer) "chamfer")
+     ("C" (setq powerline-default-separator 'contour) "contour")
+     ("(" (setq powerline-default-separator 'curve) "curve")
+     (")" (setq powerline-default-separator 'rounded) "rounded")
+     ("]" (setq powerline-default-separator 'roundstub) "roundstub")
+     ("/" (setq powerline-default-separator 'slant) "slant")
+     ("w" (setq powerline-default-separator 'wave) "wave")
+     ("z" (setq powerline-default-separator 'zigzag) "zigzag")
+     ("u" (setq powerline-default-separator 'utf-8) "utf-8")
+     ("n" (setq powerline-default-separator 'nil) "none"))
+
