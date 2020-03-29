@@ -37,7 +37,7 @@
     ("~/orgmodel/fssc.org" "~/orgmodel/report.org" "~/orgmodel/tech.org" "~/orgmodel/mingyuan.org")))
  '(package-selected-packages
    (quote
-    (nlinum-hln org-pomodoro dashboard color-theme-x color-theme evil-nerd-commenter spaceline-all-the-icons spaceline counsel swiper which-key dracula-theme smex htmlize kaolin-themes smart-mode-line-powerline-theme vcl-mode solarized-theme moody doom-modeline evil-org company-box flx-ido ejc-sql edbi disable-mouse cnfonts all-the-icons centaur-tabs nord-theme ace-jump-mode doom-themes spacemacs-theme zenburn-theme smooth-scrolling powerline-evil dap-mode company-lsp projectile use-package xclip simpleclip lsp-java evil-numbers evil-leader evil-surround 0blayout ivy gruvbox-theme evil-easymotion neotree evil)))
+    (company-box ox-gfm nlinum-hln org-pomodoro dashboard color-theme-x color-theme evil-nerd-commenter spaceline-all-the-icons spaceline counsel swiper which-key dracula-theme smex htmlize kaolin-themes smart-mode-line-powerline-theme vcl-mode solarized-theme moody doom-modeline evil-org flx-ido ejc-sql edbi disable-mouse cnfonts all-the-icons centaur-tabs nord-theme ace-jump-mode doom-themes spacemacs-theme zenburn-theme smooth-scrolling powerline-evil dap-mode company-lsp projectile use-package xclip simpleclip lsp-java evil-numbers evil-leader evil-surround 0blayout ivy gruvbox-theme evil-easymotion neotree evil)))
  '(safe-local-variable-values (quote ((flycheck-disabled-checkers emacs-lisp-checkdoc)))))
 ;; reload the config funtion
 (defun reload-user-init-file()
@@ -64,25 +64,38 @@
  '(company-tooltip-common ((t (:foreground "#E6E6FA"))))
  '(company-tooltip-common-selection ((t (:foreground "#800000"))))
  '(company-tooltip-selection ((t (:background "#FFE66F" :foreground "#000000"))))
+ '(company-box-scrollbar ((t (:background "#5B5B5B" :foreground "#000000"))))
  '(linum ((t (:inherit (shadow default) :foreground "DimGray" :background "dark"))))
- '(spaceline-evil-emacs ((t (:background "#6272a4" :foreground "#f8f8f2"))))
- '(spaceline-evil-insert ((t (:background "#77A498" :foreground "#f8f8f2"))))
- '(spaceline-evil-motion ((t (:background "#696969" :foreground "#f8f8f2"))))
- '(spaceline-evil-normal ((t (:background "#5B5B5B" :foreground "#f8f8f2"))))
- '(spaceline-evil-replace ((t (:background "#FF8C0" :foreground "#f8f8f2"))))
- '(spaceline-evil-visual ((t (:background "#FF8C00" :foreground "#f8f8f2"))))
- '(show-paren-match ((t (:background "#6272a4" :foreground "#00000"))))
+ '(linum-highlight-face ((t (:background "#282828" :foreground "#EEEE00"))))
  '(lsp-face-semhl-field ((t (:foreground "#6272a4"))))
  '(lsp-face-semhl-variable ((t (:foreground "#6272a4"))))
  '(lsp-face-semhl-variable-local ((t (:foreground "#6272a4"))))
  '(powerline-active0 ((t (:foreground "#f8f8f2"))))
  '(powerline-active1 ((t (:foreground "#FFDEAD"))))
- '(linum-highlight-face ((t (:background "#282828" :foreground "#EEEE00")))))
+ '(show-paren-match ((t (:background "#6272a4" :foreground "#00000"))))
+ '(spaceline-evil-emacs ((t (:background "#6272a4" :foreground "#f8f8f2"))))
+ '(spaceline-evil-insert ((t (:background "#77A498" :foreground "#f8f8f2"))))
+ '(spaceline-evil-motion ((t (:background "#696969" :foreground "#f8f8f2"))))
+ '(spaceline-evil-normal ((t (:background "#5B5B5B" :foreground "#f8f8f2"))))
+ '(spaceline-evil-replace ((t (:background "#FF8C0" :foreground "#f8f8f2"))))
+ '(spaceline-evil-visual ((t (:background "#FF8C00" :foreground "#f8f8f2")))))
 ;;(set-face-background 'region "#44475a")
 (set-cursor-color "coral")
-;;(set-face-foreground 'region "dim gray")
-;;(set-face-background 'region "black")
-;;(set-face-background 'fringe "#002b36")
+
+;; company mode
+(use-package company
+  :defer 2
+  :diminish
+  :custom
+  (company-begin-commands '(self-insert-command))
+  (company-idle-delay .1)
+  (company-minimum-prefix-length 2)
+  (company-show-numbers t)
+  (company-tooltip-align-annotations 't)
+  (global-company-mode t))
+(use-package company-box
+  :after company
+  :hook (company-mode . company-box-mode))
 
 (require 'neotree)
 (global-set-key [f2] 'neotree-toggle)
@@ -178,13 +191,14 @@
               (evil-org-set-key-theme)))
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
+(setq org-export-with-sub-superscripts nil)
 
 ;; space line theme
 (require 'spaceline-config)
 (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
 (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state
-    powerline-height 25
-    powerline-default-separator "contour")
+    powerline-height 34
+    powerline-default-separator "wave")
 
     ;; powerline-default-separator "wave")
     ;; powerline-default-separator "slant") 
@@ -240,35 +254,10 @@
 (require 'insert-translated-name)
 (setq insert-translated-name-translate-engine "youdao")
 
-(require 'cnfonts)
 
 ;; disable mouse
 (require 'disable-mouse)
 (global-disable-mouse-mode)
-
-;;(use-package company-box
-;;      :diminish
-;;      :functions (all-the-icons-faicon
-;;                  all-the-icons-material
-;;                  all-the-icons-octicon
-;;                  all-the-icons-alltheicon)
-;;      :hook (company-mode . company-box-mode)
-;;      :init (setq company-box-enable-icon (display-graphic-p))
-;;      :config
-;;      (setq company-box-backends-colors 2))
-
-;;(require 'color)
-;;(let ((bg (face-attribute 'default :background)))
-;;  (custom-set-faces
-;;   `(company-tooltip ((t (:inherit default :background ,(color-lighten-name bg 2)))))))
-;;(require 'color)
-;;(let ((bg (face-attribute 'default :background)))
-;;  (custom-set-faces
-;;   '(company-tooltip ((t (:inherit default :background ,(color-lighten-name bg 2)))))
-;;   '(company-scrollbar-bg ((t (:background ,(color-lighten-name bg 10)))))
-;;   '(company-scrollbar-fg ((t (:background ,(color-lighten-name bg 5)))))
-;;   '(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
-;;   '(company-tooltip-common ((t (:inherit font-lock-constant-face))))))
 
 ;; database client
 (require 'ejc-sql)
@@ -334,3 +323,8 @@ by using nxml's indentation rules."
       (indent-region begin end))
     (message "Ah, much better!"))
 
+(require 'cnfonts)
+(setq cnfonts--custom-set-fontnames
+      '(("PragmataPro" "Ubuntu Mono" "DejaVu Sans Mono")
+        ("文泉驿等宽微米黑" "Ubuntu Mono" "隶书" "新宋体")
+        ("HanaMinB" "SimSun-ExtB" "MingLiU-ExtB")))
