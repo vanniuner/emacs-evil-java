@@ -4,52 +4,52 @@
 ![image](https://github.com/vanniuner/emacs-evil-java/blob/master/Screenshot%20from%202020-03-29%2013-17-51.png)
 
 * 插件列表
-** evil
-** evil-easymotion
-** evil-leader 
-** evil-surround
-** evil-org
-** org-pomodoro
-** neotree
-** lsp-java
-** ejc-sql
-** spaceline
-** swiper
-** smex
-** gruvbox-theme
+1. evil
+2. evil-easymotion
+3. evil-leader 
+4. evil-surround
+5. evil-org
+6. org-pomodoro
+7. neotree
+8. lsp-java
+9. ejc-sql
+10. spaceline
+11. swiper
+12. smex
+13. gruvbox-theme
 
 * 快捷键
 ** evil-easymotion
-   SPC %find character%
+| SPC %character% | 跳转到 %character% |
 ** evil-leader
-   leader key [;]
-   "w" 'save-buffer
-   "q" 'kill-current-buffer
-   "d" 'delete-other-windows
-   "6" 'dap-continue
-   "2" 'dap-next
-   "j" 'next-multiframe-window
-   "4" “dap-breakpoint-toggle	
-   "5" 'dap-ui-repl	
-   "t" 'insert-translated-name-replace-with-camel
-   "k" 'ejc-describe-table
-   "i" 'lsp-java-add-import
-   "s" 'evil-surround-region
+| leader | key [;]                                    |
+| "w"    | 'save-buffer                               |
+| "q"    | 'kill-current-buffer                       |
+| "d"    | 'delete-other-windows                      |
+| "6"    | 'dap-continue                              |
+| "2"    | 'dap-next                                  |
+| "j"    | 'next-multiframe-window                    |
+| "4"    | 'dap-breakpoint-toggle                     |
+| "5"    | 'dap-ui-repl                               |
+| "t"    | 'insert-translated-name-replace-with-camel |
+| "k"    | 'ejc-describe-table                        |
+| "i"    | 'lsp-java-add-import                       |
+| "s"    | 'evil-surround-region                      |
 ** evil-surround
-   选中内容 ;s  
-   ;s evil-surround-region
+| 选中内容      | ;s                   |
+| ;s + %symbol% | evil-surround-region |
 ** neotree
-   F2     打开/关闭 neotree 窗口
-   M-1    打开neotree并选中当前节点
+| F2  | 打开/关闭 neotree 窗口    |
+| M-1 | 打开neotree并选中当前节点 |
 ** lsp-java
-   ;i     自动import
-   M-i    跳转到实现代码块
-   M-d    跳转到定义代码块
-   M-x > dap-debug > JavaAttach  远程断点链接
-   ;5     打开交互命令行，可trace当前断点下内存变量 
-   ;4     当前行切换为断点
-   ;6     跳转到下一个断点 
-   ;2     断点跳过
+| ;i                           | 自动import                                |
+| M-i                          | 跳转到实现代码块                          |
+| M-d                          | 跳转到定义代码块                          |
+| M-x > dap-debug > JavaAttach | 远程断点链接                              |
+| ;5                           | 打开交互命令行，可trace当前断点下内存变量 |
+| ;4                           | 当前行切换为断点                          |
+| ;6                           | 跳转到下一个断点                          |
+| ;2                           | 断点跳过                                  |
 *** 代码补全颜色设置
  #+Begin_SRC lisp
     ;; 自行尝试
@@ -61,8 +61,8 @@
     '(company-tooltip-selection ((t (:background "#FFE66F" :foreground "#000000"))))
  #+END_SRC
 ** ejc-sql
-   ejc-connection 链接数据库
-   C-c C-c 执行sql
+ | M-x ejc-connection | 链接数据库 |
+ | C-c C-c            | 执行sql    |
  #+Begin_SRC lisp
     (ejc-create-connection
     "test"
@@ -90,7 +90,8 @@
         insert into PROJECT_INFO (project_code,period,unpaid) values('102000035','2020-02-02',2.3);
         insert into PROJECT_INFO (project_code,period,unpaid) values('102000034','2020-02-02',2.3);
     </CREATE>
-#+Begin_SRC
+#+END_SRC
+
 ** spaceline
 *** 设置evil状态颜色
  #+Begin_SRC lisp
