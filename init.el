@@ -43,7 +43,7 @@
     ("~/orgmodel/fssc.org" "~/orgmodel/report.org" "~/orgmodel/tech.org" "~/orgmodel/mingyuan.org")))
  '(package-selected-packages
    (quote
-    (java-snippets auto-yasnippet company-box ox-gfm nlinum-hln org-pomodoro dashboard color-theme-x color-theme evil-nerd-commenter spaceline-all-the-icons spaceline counsel swiper which-key dracula-theme smex htmlize kaolin-themes smart-mode-line-powerline-theme vcl-mode solarized-theme moody doom-modeline evil-org flx-ido ejc-sql edbi disable-mouse cnfonts all-the-icons centaur-tabs nord-theme ace-jump-mode doom-themes spacemacs-theme zenburn-theme smooth-scrolling powerline-evil dap-mode company-lsp projectile use-package xclip simpleclip lsp-java evil-numbers evil-leader evil-surround 0blayout ivy gruvbox-theme evil-easymotion neotree evil)))
+    (java-snippets auto-yasnippet company-box ox-gfm nlinum-hln org-pomodoro color-theme-x color-theme evil-nerd-commenter spaceline-all-the-icons spaceline counsel swiper which-key dracula-theme smex htmlize kaolin-themes smart-mode-line-powerline-theme vcl-mode solarized-theme moody doom-modeline evil-org flx-ido ejc-sql edbi disable-mouse cnfonts all-the-icons centaur-tabs nord-theme ace-jump-mode doom-themes spacemacs-theme zenburn-theme smooth-scrolling powerline-evil dap-mode company-lsp projectile use-package xclip simpleclip lsp-java evil-numbers evil-leader evil-surround 0blayout ivy gruvbox-theme evil-easymotion neotree evil)))
  '(safe-local-variable-values (quote ((flycheck-disabled-checkers emacs-lisp-checkdoc)))))
 ;; reload the config funtion
 (defun reload-user-init-file()
@@ -80,11 +80,11 @@
  '(powerline-active1 ((t (:foreground "#FFDEAD"))))
  '(show-paren-match ((t (:background "#6272a4" :foreground "#00000"))))
  '(spaceline-evil-emacs ((t (:background "#6272a4" :foreground "#f8f8f2"))))
- '(spaceline-evil-insert ((t (:background "#77A498" :foreground "#f8f8f2"))))
+ '(spaceline-evil-insert ((t (:background "#666699" :foreground "#FFA500"))))
  '(spaceline-evil-motion ((t (:background "#696969" :foreground "#f8f8f2"))))
- '(spaceline-evil-normal ((t (:background "#5B5B5B" :foreground "#f8f8f2"))))
+ '(spaceline-evil-normal ((t (:background "#696969" :foreground "#FFFAFA"))))
  '(spaceline-evil-replace ((t (:background "#FF8C0" :foreground "#f8f8f2"))))
- '(spaceline-evil-visual ((t (:background "#FF8C00" :foreground "#f8f8f2")))))
+ '(spaceline-evil-visual ((t (:background "#FF8C00" :foreground "#2F4F4F")))))
 ;;(set-face-background 'region "#44475a")
 (set-cursor-color "coral")
 
@@ -151,6 +151,7 @@
 ;; evil
 (setq evil-want-C-i-jump nil)
 (require 'evil)
+(defalias 'forward-evil-word 'forward-evil-symbol)
 (evil-mode 1)
 (require 'evil-surround)                                                                                                       
 (global-evil-surround-mode 1)     
@@ -166,8 +167,6 @@
 (define-key evil-normal-state-map (kbd "C-j") (lambda ()
                                                 (interactive)
                                                 (evil-scroll-down nil)))
-(use-package evil
-  :bind (("C-u" . scroll-down-command)))
 ;;evil-leader
 (require 'evil-leader)
 (global-evil-leader-mode)
@@ -205,10 +204,17 @@
 (require 'spaceline-config)
 (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
 (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state
-    powerline-height 34
-    powerline-default-separator "wave")
-
-    ;; powerline-default-separator "wave")
+    powerline-height 25 
+    powerline-default-separator nil)
+(setq evil-emacs-state-tag "EMACS")
+(setq evil-hybrid-state-tag "HYBRID")
+(setq evil-insert-state-tag "INSERT")
+(setq evil-lisp-state-tag "LISP")
+(setq evil-motion-state-tag "MOTION")
+(setq evil-normal-state-tag "NORMAL")
+(setq evil-operator-state-tag "OPERATOR")
+(setq evil-visual-state-tag "VISUAL")
+;; powerline-default-separator "wave")
     ;; powerline-default-separator "slant") 
 ;; powerline-default-separator "contour")
 (spaceline-spacemacs-theme)
@@ -343,3 +349,8 @@ by using nxml's indentation rules."
 (global-set-key (kbd "H-y") #'aya-expand)
 (yas-global-mode 1)
 (add-hook 'yas-after-exit-snippet-hook #'evil-normal-state)
+
+;; which-key
+(require 'which-key)
+(which-key-mode)
+(which-key-setup-side-window-bottom)
