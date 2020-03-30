@@ -28,16 +28,22 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(company-begin-commands (quote (self-insert-command)))
+ '(company-idle-delay 0.1)
+ '(company-minimum-prefix-length 2)
+ '(company-show-numbers t)
+ '(company-tooltip-align-annotations t)
  '(custom-safe-themes
    (quote
     ("55c2c0d811cdecd311ebe27f82b24a5410d38c1ff6117c91e5ba88031829ee06" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "b89ae2d35d2e18e4286c8be8aaecb41022c1a306070f64a66fd114310ade88aa" "939ea070fb0141cd035608b2baabc4bd50d8ecc86af8528df9d41f4d83664c6a" "aded61687237d1dff6325edb492bde536f40b048eab7246c61d5c6643c696b7f" "3788e589eb432e6a515d557cbeb8dc4eaca9e00ae54f932b4bd43ed78605532e" "53993d7dc1db7619da530eb121aaae11c57eaf2a2d6476df4652e6f0bd1df740" "a7928e99b48819aac3203355cbffac9b825df50d2b3347ceeec1e7f6b592c647" "f7b0f2d0f37846ef75157f5c8c159e6d610c3efcc507cbddec789c02e165c121" "b69323309e5839676409607f91c69da2bf913914321c995f63960c3887224848" "a70b47c87e9b0940f6fece46656200acbfbc55e129f03178de8f50934ac89f58" "054e929c1df4293dd68f99effc595f5f7eb64ff3c064c4cfaad186cd450796db" "2f945b8cbfdd750aeb82c8afb3753ebf76a1c30c2b368d9d1f13ca3cc674c7bc" "0eb3c0868ff890b0c4ee138069ce2a8936a8a69ba150efa6bfb9fb7c05af5ec3" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "1526aeed166165811eefd9a6f9176061ec3d121ba39500af2048073bea80911e" "845103fcb9b091b0958171653a4413ccfad35552bc39697d448941bcbe5a660d" "a339f231e63aab2a17740e5b3965469e8c0b85eccdfb1f9dbd58a30bdad8562b" "bc836bf29eab22d7e5b4c142d201bcce351806b7c1f94955ccafab8ce5b20208" default)))
+ '(global-company-mode t)
  '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(org-agenda-files
    (quote
     ("~/orgmodel/fssc.org" "~/orgmodel/report.org" "~/orgmodel/tech.org" "~/orgmodel/mingyuan.org")))
  '(package-selected-packages
    (quote
-    (company-box ox-gfm nlinum-hln org-pomodoro dashboard color-theme-x color-theme evil-nerd-commenter spaceline-all-the-icons spaceline counsel swiper which-key dracula-theme smex htmlize kaolin-themes smart-mode-line-powerline-theme vcl-mode solarized-theme moody doom-modeline evil-org flx-ido ejc-sql edbi disable-mouse cnfonts all-the-icons centaur-tabs nord-theme ace-jump-mode doom-themes spacemacs-theme zenburn-theme smooth-scrolling powerline-evil dap-mode company-lsp projectile use-package xclip simpleclip lsp-java evil-numbers evil-leader evil-surround 0blayout ivy gruvbox-theme evil-easymotion neotree evil)))
+    (java-snippets auto-yasnippet company-box ox-gfm nlinum-hln org-pomodoro dashboard color-theme-x color-theme evil-nerd-commenter spaceline-all-the-icons spaceline counsel swiper which-key dracula-theme smex htmlize kaolin-themes smart-mode-line-powerline-theme vcl-mode solarized-theme moody doom-modeline evil-org flx-ido ejc-sql edbi disable-mouse cnfonts all-the-icons centaur-tabs nord-theme ace-jump-mode doom-themes spacemacs-theme zenburn-theme smooth-scrolling powerline-evil dap-mode company-lsp projectile use-package xclip simpleclip lsp-java evil-numbers evil-leader evil-surround 0blayout ivy gruvbox-theme evil-easymotion neotree evil)))
  '(safe-local-variable-values (quote ((flycheck-disabled-checkers emacs-lisp-checkdoc)))))
 ;; reload the config funtion
 (defun reload-user-init-file()
@@ -58,13 +64,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(company-box-scrollbar ((t (:background "#5B5B5B" :foreground "#000000"))))
  '(company-tooltip ((t (:background "#44475a" :foreground "#E1FFFF"))))
  '(company-tooltip-annotation ((t (:foreground "#FFA500"))))
  '(company-tooltip-annotation-selection ((t (:foreground "#2F4F4F"))))
  '(company-tooltip-common ((t (:foreground "#E6E6FA"))))
  '(company-tooltip-common-selection ((t (:foreground "#800000"))))
  '(company-tooltip-selection ((t (:background "#FFE66F" :foreground "#000000"))))
- '(company-box-scrollbar ((t (:background "#5B5B5B" :foreground "#000000"))))
  '(linum ((t (:inherit (shadow default) :foreground "DimGray" :background "dark"))))
  '(linum-highlight-face ((t (:background "#282828" :foreground "#EEEE00"))))
  '(lsp-face-semhl-field ((t (:foreground "#6272a4"))))
@@ -129,6 +135,7 @@
 ;; lsp java
 (setq lsp-java-jdt-download-url "http://cjzc.agri-rd.com/html/vimwiki/jdt-language-server-latest.tar.gz")
 (require 'lsp-java)
+(setq lsp-enable-file-watchers nil)
 (add-hook 'java-mode-hook #'lsp)
 (global-set-key (kbd "M-i") 'lsp-goto-implementation)
 (global-set-key (kbd "M-d") 'lsp-goto-type-definition)
@@ -178,6 +185,7 @@
  "k" 'ejc-describe-table
  "i" 'lsp-java-add-import
  "s" 'evil-surround-region
+ "l" 'toggle-truncate-lines
  )
 
 ;; evil-org
@@ -323,8 +331,15 @@ by using nxml's indentation rules."
       (indent-region begin end))
     (message "Ah, much better!"))
 
+;; fonts
 (require 'cnfonts)
 (setq cnfonts--custom-set-fontnames
       '(("PragmataPro" "Ubuntu Mono" "DejaVu Sans Mono")
         ("文泉驿等宽微米黑" "Ubuntu Mono" "隶书" "新宋体")
         ("HanaMinB" "SimSun-ExtB" "MingLiU-ExtB")))
+
+;; todo auto yasnippet
+(global-set-key (kbd "H-w") #'aya-create)
+(global-set-key (kbd "H-y") #'aya-expand)
+(yas-global-mode 1)
+(add-hook 'yas-after-exit-snippet-hook #'evil-normal-state)
