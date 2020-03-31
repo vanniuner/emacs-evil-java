@@ -14,7 +14,6 @@
 (setq-default save-place t)
 (require 'saveplace)
 (setq inhibit-startup-message t)
-(global-hl-line-mode 1)  
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;; plugin's source for china 
@@ -43,7 +42,7 @@
     ("~/orgmodel/fssc.org" "~/orgmodel/report.org" "~/orgmodel/tech.org" "~/orgmodel/mingyuan.org")))
  '(package-selected-packages
    (quote
-    (java-snippets auto-yasnippet company-box ox-gfm nlinum-hln org-pomodoro color-theme-x color-theme evil-nerd-commenter spaceline-all-the-icons spaceline counsel swiper which-key dracula-theme smex htmlize kaolin-themes smart-mode-line-powerline-theme vcl-mode solarized-theme moody doom-modeline evil-org flx-ido ejc-sql edbi disable-mouse cnfonts all-the-icons centaur-tabs nord-theme ace-jump-mode doom-themes spacemacs-theme zenburn-theme smooth-scrolling powerline-evil dap-mode company-lsp projectile use-package xclip simpleclip lsp-java evil-numbers evil-leader evil-surround 0blayout ivy gruvbox-theme evil-easymotion neotree evil)))
+    (evil-collection vterm java-snippets auto-yasnippet company-box ox-gfm nlinum-hln org-pomodoro color-theme-x color-theme evil-nerd-commenter spaceline-all-the-icons spaceline counsel swiper which-key dracula-theme smex htmlize kaolin-themes smart-mode-line-powerline-theme vcl-mode solarized-theme moody doom-modeline evil-org flx-ido ejc-sql edbi disable-mouse cnfonts all-the-icons centaur-tabs nord-theme ace-jump-mode doom-themes spacemacs-theme zenburn-theme smooth-scrolling powerline-evil dap-mode company-lsp projectile use-package xclip simpleclip lsp-java evil-numbers evil-leader evil-surround 0blayout ivy gruvbox-theme evil-easymotion neotree evil)))
  '(safe-local-variable-values (quote ((flycheck-disabled-checkers emacs-lisp-checkdoc)))))
 ;; reload the config funtion
 (defun reload-user-init-file()
@@ -52,10 +51,10 @@
 
 ;; show line number
 (require 'linum)
-(global-linum-mode t)
+;;(global-linum-mode t)
 (setq linum-format "%3d ")
 ;;(setq display-line-number-current-absolute t)
-(global-hl-line-mode 1)
+;;(global-hl-line-mode 1)
 (require 'hlinum)
 (hlinum-activate)
 
@@ -150,7 +149,10 @@
 
 ;; evil
 (setq evil-want-C-i-jump nil)
+(setq evil-want-integration t) ;; This is optional since it's already set to t by default.
+(setq evil-want-keybinding nil)
 (require 'evil)
+(evil-collection-init)
 (defalias 'forward-evil-word 'forward-evil-symbol)
 (evil-mode 1)
 (require 'evil-surround)                                                                                                       
@@ -185,6 +187,7 @@
  "i" 'lsp-java-add-import
  "s" 'evil-surround-region
  "l" 'toggle-truncate-lines
+ "e" 'neotree-enter
  )
 
 ;; evil-org
@@ -354,3 +357,10 @@ by using nxml's indentation rules."
 (require 'which-key)
 (which-key-mode)
 (which-key-setup-side-window-bottom)
+
+;; org mode
+;;(setq org-file-apps
+;;    '(("\\.docx\\'" . "wps.exe %s" )
+;;      ("\\.doc\\'" . "wps.exe %s" ))
+;;    ) 
+
