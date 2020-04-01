@@ -8,7 +8,6 @@
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 
-(require 'db)
 (when (member "Symbola" (font-family-list))
   (set-fontset-font "fontset-default" nil
                     (font-spec :size 20 :name "Symbola")))
@@ -171,12 +170,15 @@
 
 ;; evil
 (setq evil-want-C-i-jump nil)
-(setq evil-want-integration t) ;; This is optional since it's already set to t by default.
+(setq evil-want-integration t) 
 (setq evil-want-keybinding nil)
+(setq evil-collection-company-use-tng nil)
 (require 'evil)
-(evil-collection-init)
-(defalias 'forward-evil-word 'forward-evil-symbol)
+;;(evil-collection-init)
 (evil-mode 1)
+(defalias 'forward-evil-word 'forward-evil-symbol)
+(add-hook 'vterm-mode-hook 'evil-collection-init)
+
 ;;(require 'evil-surround)                                                                                                       
 (use-package evil-surround)
 (global-evil-surround-mode 1)     
@@ -213,6 +215,7 @@
  "l" 'toggle-truncate-lines
  "e" 'neotree-enter
  "m" 'vterm
+ "b" 'switch-to-buffer
  )
 
 ;; evil-org
@@ -321,7 +324,7 @@
 (setq ejc-result-table-impl 'ejc-result-mode)
 
 ;; db config
-;;(require 'db)
+(require 'db)
 ;; database client end
 
 ;; theme
