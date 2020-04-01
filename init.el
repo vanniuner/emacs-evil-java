@@ -72,7 +72,7 @@
             (linum-mode t)))
 
 (use-package hlinum)
-;;(global-hl-line-mode 1)
+(global-hl-line-mode 1)
 (hlinum-activate)
 
 (custom-set-faces
@@ -178,6 +178,16 @@
 (evil-mode 1)
 (defalias 'forward-evil-word 'forward-evil-symbol)
 (add-hook 'vterm-mode-hook 'evil-collection-init)
+(add-hook 'vterm-mode-hook
+     (lambda()
+       (global-hl-line-mode -1)
+       (hl-line-mode -1)) 't )
+(add-hook 'sql-mode-hook
+          'java-mode-hook
+          'org-mode-hook
+     (lambda()
+         (global-hl-line-mode 1)
+         (hl-line-mode 1)))
 
 ;;(require 'evil-surround)                                                                                                       
 (use-package evil-surround)
