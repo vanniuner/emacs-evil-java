@@ -7,6 +7,8 @@
 (set-default-coding-systems 'utf-8)
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
+
+(require 'db)
 (when (member "Symbola" (font-family-list))
   (set-fontset-font "fontset-default" nil
                     (font-spec :size 20 :name "Symbola")))
@@ -210,6 +212,7 @@
  "s" 'evil-surround-region
  "l" 'toggle-truncate-lines
  "e" 'neotree-enter
+ "m" 'vterm
  )
 
 ;; evil-org
@@ -402,6 +405,15 @@ by using nxml's indentation rules."
       org-odd-levels-only t)
 (setq prettify-symbols-unprettify-at-point 'right-edge)
 (add-hook 'org-mode-hook 'prettify-symbols-mode)
+;; load image in org mode
+(defun org-toggle-iimage-in-org ()
+  "display images in your org file"
+  (interactive)
+  (if (face-underline-p 'org-link)
+      (set-face-underline-p 'org-link nil)
+      (set-face-underline-p 'org-link t))
+  (iimage-mode))
+(setq org-image-actual-width nil)
 ;;(setq org-file-apps
 ;;    '(("\\.docx\\'" . "wps.exe %s" )
 ;;      ("\\.doc\\'" . "wps.exe %s" ))
