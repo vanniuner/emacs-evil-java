@@ -3,11 +3,24 @@
 (tool-bar-mode 0)
 (menu-bar-mode 0)
 (scroll-bar-mode 0)
+(prefer-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(when (member "Symbola" (font-family-list))
+  (set-fontset-font "fontset-default" nil
+                    (font-spec :size 20 :name "Symbola")))
+(when (member "Symbola" (font-family-list))
+  (set-fontset-font t 'unicode "Symbola" nil 'prepend))
+(setq default-buffer-file-coding-system 'utf-8)
 (setq visible-bell 0)
 (setq ring-bell-function 'ignore
       visible-bell nil)
 (setq make-backup-files nil)
 (show-paren-mode t)
+;;(setq initial-buffer-choice "~/orgmodel/main.org")
+(setq gc-cons-threshold (* 50 1000 1000))
+
 
 (setq-default tab-width 4 indent-tabs-mode nil)
 (setq save-place-file "~/.emacs.d/saveplace")
@@ -42,7 +55,7 @@
     ("~/orgmodel/fssc.org" "~/orgmodel/report.org" "~/orgmodel/tech.org" "~/orgmodel/mingyuan.org")))
  '(package-selected-packages
    (quote
-    (evil-collection vterm java-snippets auto-yasnippet company-box ox-gfm nlinum-hln org-pomodoro color-theme-x color-theme evil-nerd-commenter spaceline-all-the-icons spaceline counsel swiper which-key dracula-theme smex htmlize kaolin-themes smart-mode-line-powerline-theme vcl-mode solarized-theme moody doom-modeline evil-org flx-ido ejc-sql edbi disable-mouse cnfonts all-the-icons centaur-tabs nord-theme ace-jump-mode doom-themes spacemacs-theme zenburn-theme smooth-scrolling powerline-evil dap-mode company-lsp projectile use-package xclip simpleclip lsp-java evil-numbers evil-leader evil-surround 0blayout ivy gruvbox-theme evil-easymotion neotree evil)))
+    (org-bullets evil-collection vterm java-snippets auto-yasnippet company-box ox-gfm nlinum-hln org-pomodoro color-theme-x color-theme evil-nerd-commenter spaceline-all-the-icons spaceline counsel swiper which-key dracula-theme smex htmlize kaolin-themes smart-mode-line-powerline-theme vcl-mode solarized-theme moody doom-modeline evil-org flx-ido ejc-sql edbi disable-mouse cnfonts all-the-icons centaur-tabs nord-theme ace-jump-mode doom-themes spacemacs-theme zenburn-theme smooth-scrolling powerline-evil dap-mode company-lsp projectile use-package xclip simpleclip lsp-java evil-numbers evil-leader evil-surround 0blayout ivy gruvbox-theme evil-easymotion neotree evil)))
  '(safe-local-variable-values (quote ((flycheck-disabled-checkers emacs-lisp-checkdoc)))))
 ;; reload the config funtion
 (defun reload-user-init-file()
@@ -50,12 +63,15 @@
   (load-file user-init-file))
 
 ;; show line number
-(require 'linum)
+(use-package linum)
 ;;(global-linum-mode t)
 (setq linum-format "%3d ")
-;;(setq display-line-number-current-absolute t)
+(add-hook 'java-mode-hook
+          (lambda ()
+            (linum-mode t)))
+
+(use-package hlinum)
 ;;(global-hl-line-mode 1)
-(require 'hlinum)
 (hlinum-activate)
 
 (custom-set-faces
@@ -102,7 +118,9 @@
   :after company
   :hook (company-mode . company-box-mode))
 
-(require 'neotree)
+;; (require 'neotree)
+(use-package neotree
+  :defer 2)
 (global-set-key [f2] 'neotree-toggle)
 (setq projectile-switch-project-action 'neotree-projectile-action)
 (global-set-key (kbd "M-1") 'neotree-find)
@@ -138,8 +156,10 @@
 (add-hook 'java-mode-hook #'lsp)
 (global-set-key (kbd "M-i") 'lsp-goto-implementation)
 (global-set-key (kbd "M-d") 'lsp-goto-type-definition)
-(require 'dap-java)
+(use-package dap-java
+  :defer 2)
 (use-package dap-mode
+  :defer 2
   :ensure t :after lsp-mode
   :config
   (dap-mode t)
@@ -155,7 +175,8 @@
 (evil-collection-init)
 (defalias 'forward-evil-word 'forward-evil-symbol)
 (evil-mode 1)
-(require 'evil-surround)                                                                                                       
+;;(require 'evil-surround)                                                                                                       
+(use-package evil-surround)
 (global-evil-surround-mode 1)     
 (setq evil-insert-state-cursor 'box)
 ;; evil ace jump
@@ -170,7 +191,8 @@
                                                 (interactive)
                                                 (evil-scroll-down nil)))
 ;;evil-leader
-(require 'evil-leader)
+;;(require 'evil-leader)
+(use-package evil-leader)
 (global-evil-leader-mode)
 (evil-leader/set-leader ";")
 (evil-leader/set-key
@@ -204,7 +226,8 @@
 (setq org-export-with-sub-superscripts nil)
 
 ;; space line theme
-(require 'spaceline-config)
+;;(require 'spaceline-config)
+(use-package spaceline-config)
 (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
 (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state
     powerline-height 25 
@@ -262,22 +285,27 @@
 ;;(setq centaur-tabs-set-modified-marker t)
 ;;(setq centaur-tabs-modified-marker "*")
 
-(require 'all-the-icons)
-(require 'evil-fcitx)
+;;(require 'all-the-icons)
+;;(require 'evil-fcitx)
+(use-package all-the-icons)
+(use-package evil-fcitx)
 (global-unset-key (kbd "C-SPC"))
 (global-set-key (kbd "M-SPC") 'set-mark-command)
 
 ;; translate 
-(require 'insert-translated-name)
+;;(require 'insert-translated-name)
+(use-package insert-translated-name)
 (setq insert-translated-name-translate-engine "youdao")
 
 
 ;; disable mouse
-(require 'disable-mouse)
+;;(require 'disable-mouse)
+(use-package disable-mouse)
 (global-disable-mouse-mode)
 
 ;; database client
-(require 'ejc-sql)
+;;(require 'ejc-sql)
+(use-package ejc-sql)
 (add-hook 'ejc-sql-minor-mode-hook
           (lambda ()
             (auto-complete-mode nil)))
@@ -288,15 +316,18 @@
             (ejc-set-column-width-limit nil)
             ))
 (setq ejc-result-table-impl 'ejc-result-mode)
+
 ;; db config
-(require 'db)
+;;(require 'db)
 ;; database client end
 
 ;; theme
 (load-theme 'doom-gruvbox t)
 
 ;; smex
-(require 'smex)
+;;(require 'smex)
+(use-package smex)
+;;(require 'smex)
 (smex-initialize) 
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
@@ -341,7 +372,7 @@ by using nxml's indentation rules."
     (message "Ah, much better!"))
 
 ;; fonts
-(require 'cnfonts)
+(use-package cnfonts)
 (setq cnfonts--custom-set-fontnames
       '(("PragmataPro" "Ubuntu Mono" "DejaVu Sans Mono")
         ("文泉驿等宽微米黑" "Ubuntu Mono" "隶书" "新宋体")
@@ -354,13 +385,40 @@ by using nxml's indentation rules."
 (add-hook 'yas-after-exit-snippet-hook #'evil-normal-state)
 
 ;; which-key
-(require 'which-key)
+(use-package which-key)
+;;(require 'which-key)
 (which-key-mode)
 (which-key-setup-side-window-bottom)
 
 ;; org mode
+(use-package org-bullets
+  :custom
+  (org-ellipsis "⤵")
+  :hook (org-mode . org-bullets-mode))
+(setq org-hide-emphasis-markers t
+      org-fontify-done-headline t
+      org-hide-leading-stars t
+      org-pretty-entities nil
+      org-odd-levels-only t)
+(setq prettify-symbols-unprettify-at-point 'right-edge)
+(add-hook 'org-mode-hook 'prettify-symbols-mode)
 ;;(setq org-file-apps
 ;;    '(("\\.docx\\'" . "wps.exe %s" )
 ;;      ("\\.doc\\'" . "wps.exe %s" ))
 ;;    ) 
 
+(defun number-region (start end)
+  (interactive "r")
+  (let* ((count 1)
+     (indent-region-function (lambda (start end)
+                   (save-excursion
+                     (setq end (copy-marker end))
+                     (goto-char start)
+                     (while (< (point) end)
+                       (or (and (bolp) (eolp))
+                       (insert (format "%d" count))
+                       (setq count (1+ count)))
+                       (forward-line 1))
+                     (move-marker end nil)))))
+    (indent-region start end)))
+(setq gc-cons-threshold (* 2 1000 1000))
