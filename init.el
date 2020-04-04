@@ -56,7 +56,7 @@
     ("~/orgmodel/fssc.org" "~/orgmodel/report.org" "~/orgmodel/tech.org" "~/orgmodel/mingyuan.org")))
  '(package-selected-packages
    (quote
-    (org-bullets evil-collection vterm java-snippets auto-yasnippet company-box ox-gfm nlinum-hln org-pomodoro color-theme-x color-theme evil-nerd-commenter spaceline-all-the-icons spaceline counsel swiper which-key dracula-theme smex htmlize kaolin-themes smart-mode-line-powerline-theme vcl-mode solarized-theme moody doom-modeline evil-org flx-ido ejc-sql edbi disable-mouse cnfonts all-the-icons centaur-tabs nord-theme ace-jump-mode doom-themes spacemacs-theme zenburn-theme smooth-scrolling powerline-evil dap-mode company-lsp projectile use-package xclip simpleclip lsp-java evil-numbers evil-leader evil-surround 0blayout ivy gruvbox-theme evil-easymotion neotree evil)))
+    (parinfer org-bullets evil-collection vterm java-snippets auto-yasnippet company-box ox-gfm nlinum-hln org-pomodoro color-theme-x color-theme evil-nerd-commenter spaceline-all-the-icons spaceline counsel swiper which-key dracula-theme smex htmlize kaolin-themes smart-mode-line-powerline-theme vcl-mode solarized-theme moody doom-modeline evil-org flx-ido ejc-sql edbi disable-mouse cnfonts all-the-icons centaur-tabs nord-theme ace-jump-mode doom-themes spacemacs-theme zenburn-theme smooth-scrolling powerline-evil dap-mode company-lsp projectile use-package xclip simpleclip lsp-java evil-numbers evil-leader evil-surround 0blayout ivy gruvbox-theme evil-easymotion neotree evil)))
  '(safe-local-variable-values (quote ((flycheck-disabled-checkers emacs-lisp-checkdoc)))))
 ;; reload the config funtion
 (defun reload-user-init-file()
@@ -104,20 +104,60 @@
 ;;(set-face-background 'region "#44475a")
 (set-cursor-color "coral")
 
-;; company mode
+;; company mode old
+;;(use-package company-tng
 (use-package company
-  :defer 2
-  :diminish
+  ;; :defer 2
+  ;; :diminish
   :custom
   (company-begin-commands '(self-insert-command))
   (company-idle-delay .1)
   (company-minimum-prefix-length 2)
-  (company-show-numbers t)
+  ;; (company-show-numbers t)
+  (company-global-modes '(not dired-mode dired-sidebar-mode))
   (company-tooltip-align-annotations 't)
   (global-company-mode t))
+(define-key company-active-map (kbd "RET") 'company-complete-selection)
+(define-key company-active-map (kbd "C-n") 'company-select-next)
+(define-key company-active-map (kbd "C-p") 'company-select-previous)
+(setq company-frontends
+      '(company-tng-frontend
+        company-pseudo-tooltip-frontend
+        company-echo-metadata-frontend))
+;; company mode old end
+
 (use-package company-box
   :after company
   :hook (company-mode . company-box-mode))
+;;(use-package company-tng
+;;  ;; :after company
+;;  :config
+;;(company-tng-configure-default))
+;;(company-tng-configure-default)
+;;(define-key evil-insert-state-map (kbd "C-x C-f") 'company-files)
+;;(define-key company-active-map (kbd "C-n") #'company-select-next)
+;;(define-key company-active-map (kbd "C-p") #'company-select-previous)
+;;(defun emacs-lisp/post-init-company ()
+;;  (spacemacs|add-company-backends :backends (company-files company-capf)
+;;                                  :modes emacs-lisp-mode)
+;;  (spacemacs|add-company-backends :backends (company-files company-capf)
+;;                                    :modes ielm-mode))
+;;(setq company-frontends
+;;      '(company-tng
+;;        company-pseudo-tooltip-unless-just-one-frontend
+;;        company-echo-metadata-frontend
+;;        company-preview-if-just-one-frontend))
+;;(use-package company-tng
+;;  ;; :when (featurep! +tng)
+;;  :after-call post-self-insert-hook
+;;  :config
+;;  (add-to-list 'company-frontends 'company-tng-frontend)
+;;  (define-key! company-active-map
+;;    "RET"       nil
+;;    [return]    nil
+;;    [backtab]   #'company-select-previous))
+
+
 
 ;; (require 'neotree)
 (use-package neotree
@@ -174,20 +214,9 @@
 (setq evil-want-keybinding nil)
 (setq evil-collection-company-use-tng nil)
 (require 'evil)
-;;(evil-collection-init)
+(evil-collection-init)
 (evil-mode 1)
 (defalias 'forward-evil-word 'forward-evil-symbol)
-(add-hook 'vterm-mode-hook 'evil-collection-init)
-(add-hook 'vterm-mode-hook
-     (lambda()
-       (global-hl-line-mode -1)
-       (hl-line-mode -1)) 't )
-(add-hook 'sql-mode-hook
-          'java-mode-hook
-          'org-mode-hook
-     (lambda()
-         (global-hl-line-mode 1)
-         (hl-line-mode 1)))
 
 ;;(require 'evil-surround)                                                                                                       
 (use-package evil-surround)
@@ -447,3 +476,14 @@ by using nxml's indentation rules."
                      (move-marker end nil)))))
     (indent-region start end)))
 (setq gc-cons-threshold (* 2 1000 1000))
+
+;; xml  plantuml.jar
+(setq org-plantuml-jar-path (expand-file-name "/home/van/soft/jdk/plantuml.jar"))
+;;(add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
+(org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t)))
+
+;; active Org-babel languages
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '(;; other Babel languages
+   (plantuml . t)))
